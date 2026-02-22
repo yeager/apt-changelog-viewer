@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the apt-changelog-viewer package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: apt-changelog-viewer 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-22 07:09+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/apt_changelog_viewer/main.py:81
+msgid "No changelog available"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:87 src/apt_changelog_viewer/main.py:97
+#: src/apt_changelog_viewer/main.py:332
+msgid "Apt Changelog Viewer"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:102
+msgid "Scan installed packages"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:106
+msgid "Search packages..."
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:113 src/apt_changelog_viewer/main.py:289
+msgid "Settings"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:114
+msgid "Copy Debug Info"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:115
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:116
+msgid "About Apt Changelog Viewer"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:145
+msgid "Ready"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:160
+msgid "Welcome"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:166
+msgid "Welcome to Apt Changelog Viewer"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:167
+msgid ""
+"Browse package changelogs.\n"
+"\n"
+"✓ View changelogs for installed packages\n"
+"✓ Security update highlighting\n"
+"✓ Search installed packages\n"
+"✓ Quick package info\n"
+"✓ Mark important updates"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:174
+msgid "Get Started"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:197
+msgid "Scanning installed packages..."
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:239
+#, python-format
+msgid "%(count)d packages"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:250
+msgid "Loading changelog..."
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:292
+msgid "Display"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:293
+msgid "Highlight security updates"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:313
+msgid "Debug info copied"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:319
+msgid "General"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:321
+msgid "Quit"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:322
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:339
+msgid ""
+"View changelogs for installed packages. Get notified about security updates."
+msgstr ""
