@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[o:danielnylander:p:apt-changelog-viewer:r:apt-changelog-viewer-pot]
+[o:danielnylander:p:apt-changelog-viewer:r:apt_changelog_viewer]
 file_filter = po/<lang>.po
 source_file = po/apt-changelog-viewer.pot
 source_lang = en
