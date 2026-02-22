@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "apt-changelog-viewer"
-version = "0.1.0"
+version = "0.1.1"
 description = "GTK4 changelog viewer for installed packages with security alerts"
 requires-python = ">=3.10"
 license = "GPL-3.0-or-later"
