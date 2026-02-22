@@ -1,0 +1,3 @@
+#!/usr/bin/env python3
+from apt_changelog_viewer.main import main
+main()

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=apt-changelog-viewer
+Comment=GTK4 changelog viewer for installed packages with security alerts
+Exec=apt-changelog-viewer
+Icon=applications-other-symbolic
+Terminal=false
+Categories=Development;
