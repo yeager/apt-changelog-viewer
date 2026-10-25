@@ -18,7 +18,6 @@ from apt_changelog_viewer.accessibility import AccessibilityManager
 LOCALE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "po")
 if not os.path.isdir(LOCALE_DIR):
     LOCALE_DIR = "/usr/share/locale"
-locale.bindtextdomain("apt-changelog-viewer", LOCALE_DIR)
 gettext.bindtextdomain("apt-changelog-viewer", LOCALE_DIR)
 gettext.textdomain("apt-changelog-viewer")
 _ = gettext.gettext
