@@ -21,5 +21,10 @@ class ReleaseSanityTests(unittest.TestCase):
         self.assertIsNotNone(source_version)
         self.assertEqual(metadata_version.group(1), source_version.group(1))
 
+        debian_changelog = (ROOT / "debian/changelog").read_text(encoding="utf-8")
+        debian_version = re.search(r"(?m)^apt-changelog-viewer \(([^)]+)\)", debian_changelog)
+        self.assertIsNotNone(debian_version)
+        self.assertEqual(metadata_version.group(1), debian_version.group(1).split("-", 1)[0])
+
 if __name__ == "__main__":
     unittest.main()

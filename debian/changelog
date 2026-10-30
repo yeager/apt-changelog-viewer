@@ -1,3 +1,12 @@
+apt-changelog-viewer (0.1.4-1) unstable; urgency=medium
+
+  * Read installed changelogs locally before offering an online fetch.
+  * Fetch remote changelogs through APT only after user confirmation.
+  * Highlight CVE and distribution security advisory references.
+  * Add the libadwaita runtime dependency and desktop CI checks.
+
+ -- Daniel Nylander <daniel@danielnylander.se>  Fri, 30 Oct 2026 12:00:00 +0100
+
 apt-changelog-viewer (0.1.3-1) unstable; urgency=low
 
   * Initial release. (Closes: #1129397)
