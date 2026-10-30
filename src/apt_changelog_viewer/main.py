@@ -10,7 +10,7 @@ import sys
 import json
 import threading
 import subprocess
-from apt_changelog_viewer.changelogs import fetch_changelog_through_apt, find_security_references, read_local_changelog
+from apt_changelog_viewer.changelogs import MAX_CHANGELOG_CHARS, fetch_changelog_through_apt, find_security_references, read_local_changelog
 
 LOCALE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "po")
 if not os.path.isdir(LOCALE_DIR):
@@ -267,7 +267,7 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
         threading.Thread(target=self._load_local_changelog, args=(pkg,), daemon=True).start()
 
     def _load_local_changelog(self, pkg):
-        text = read_local_changelog(pkg)
+        text = read_local_changelog(pkg, max_chars=MAX_CHANGELOG_CHARS + 1)
         if text is None:
             display_text = _("No local changelog is installed. Choose Fetch online changelog to request one from the APT-configured source.")
         else:
@@ -278,7 +278,11 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
         if pkg != self._current_pkg:
             return GLib.SOURCE_REMOVE
         self._fetch_button.set_sensitive(True)
-        self._current_changelog = text[:50000]
+        self._current_changelog = text[:MAX_CHANGELOG_CHARS]
+        if len(text) > MAX_CHANGELOG_CHARS:
+            self._current_changelog += "\n\n" + _(
+                "Changelog shortened; only the first 50,000 characters are shown."
+            )
         self._changelog_buffer.set_text(self._current_changelog)
         self._apply_security_highlights()
         if source == "remote":

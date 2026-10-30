@@ -11,6 +11,7 @@ import subprocess
 
 _PACKAGE_NAME = re.compile(r"^[a-z0-9][a-z0-9+.-]*(?::[a-z0-9][a-z0-9-]*)?$")
 _SECURITY_REFERENCE = re.compile(r"\b(?:CVE-\d{4}-\d{4,}|USN-\d{4}-\d+|DSA-\d+-\d+|DLA-\d+-\d+)\b", re.IGNORECASE)
+MAX_CHANGELOG_CHARS = 50_000
 
 
 def find_security_references(text: str) -> list[tuple[int, int]]:
@@ -25,16 +26,20 @@ def _document_package_name(package: str) -> str | None:
     return package.split(":", 1)[0]
 
 
-def read_local_changelog(package: str, doc_root: str | os.PathLike[str] = "/usr/share/doc") -> str | None:
-    """Read an installed package's compressed Debian changelog without network access."""
+def read_local_changelog(
+    package: str,
+    doc_root: str | os.PathLike[str] = "/usr/share/doc",
+    max_chars: int = MAX_CHANGELOG_CHARS,
+) -> str | None:
+    """Read a bounded portion of an installed package's compressed changelog."""
     package_name = _document_package_name(package)
-    if package_name is None:
+    if package_name is None or isinstance(max_chars, bool) or not isinstance(max_chars, int) or max_chars < 1:
         return None
 
     path = Path(doc_root) / package_name / "changelog.Debian.gz"
     try:
         with gzip.open(path, "rt", encoding="utf-8", errors="replace") as changelog:
-            return changelog.read()
+            return changelog.read(max_chars)
     except (OSError, EOFError):
         return None
 

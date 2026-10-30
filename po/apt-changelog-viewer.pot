@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-30 16:02+0100\n"
+"POT-Creation-Date: 2026-10-30 16:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/apt_changelog_viewer/main.py:64 src/apt_changelog_viewer/main.py:76
-#: src/apt_changelog_viewer/main.py:449
+#: src/apt_changelog_viewer/main.py:453
 msgid "Apt Changelog Viewer"
 msgstr ""
 
@@ -30,8 +30,8 @@ msgstr ""
 msgid "Search packages or descriptions..."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:92 src/apt_changelog_viewer/main.py:388
-#: src/apt_changelog_viewer/main.py:391
+#: src/apt_changelog_viewer/main.py:92 src/apt_changelog_viewer/main.py:392
+#: src/apt_changelog_viewer/main.py:395
 msgid "Settings"
 msgstr ""
 
@@ -106,23 +106,27 @@ msgid ""
 "one from the APT-configured source."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:285
-msgid "Online changelog loaded"
-msgstr ""
-
-#: src/apt_changelog_viewer/main.py:287
-msgid "Local changelog loaded"
+#: src/apt_changelog_viewer/main.py:284
+msgid "Changelog shortened; only the first 50,000 characters are shown."
 msgstr ""
 
 #: src/apt_changelog_viewer/main.py:289
+msgid "Online changelog loaded"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:291
+msgid "Local changelog loaded"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:293
 msgid "No local changelog found"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:314
+#: src/apt_changelog_viewer/main.py:318
 msgid "Fetch this changelog from your configured APT source?"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:315
+#: src/apt_changelog_viewer/main.py:319
 #, python-format
 msgid ""
 "APT will contact the changelog server configured by your software sources to "
@@ -130,67 +134,67 @@ msgid ""
 "name. No packages will be installed. Continue?"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:317
+#: src/apt_changelog_viewer/main.py:321
 msgid "Cancel"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:318
+#: src/apt_changelog_viewer/main.py:322
 msgid "Fetch changelog"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:334
+#: src/apt_changelog_viewer/main.py:338
 msgid "Fetching changelog from the configured APT source…"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:349
+#: src/apt_changelog_viewer/main.py:353
 msgid "APT tools are not available on this system."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:350
+#: src/apt_changelog_viewer/main.py:354
 msgid ""
 "The changelog request timed out. Your local changelog, if available, is "
 "still shown."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:351
+#: src/apt_changelog_viewer/main.py:355
 msgid "The APT source returned an empty changelog."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:352
+#: src/apt_changelog_viewer/main.py:356
 msgid "The package name is not valid."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:354
+#: src/apt_changelog_viewer/main.py:358
 msgid ""
 "Could not fetch the changelog. Check your configured software sources or "
 "network connection."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:395
+#: src/apt_changelog_viewer/main.py:399
 msgid "Display"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:396
+#: src/apt_changelog_viewer/main.py:400
 msgid "Highlight security references"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:428
+#: src/apt_changelog_viewer/main.py:432
 msgid "Debug info copied"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:434
+#: src/apt_changelog_viewer/main.py:438
 msgid "General"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:436
+#: src/apt_changelog_viewer/main.py:440
 msgid "Quit"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:437
+#: src/apt_changelog_viewer/main.py:441
 msgid "Keyboard shortcuts"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:456
+#: src/apt_changelog_viewer/main.py:460
 msgid ""
 "View package changelogs and highlight CVE and distribution security advisory "
 "references."

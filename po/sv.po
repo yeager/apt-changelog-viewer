@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apt-changelog-viewer 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-30 16:02+0100\n"
+"POT-Creation-Date: 2026-10-30 16:05+0100\n"
 "PO-Revision-Date: 2026-02-22 07:13+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/danielnylander/teams/"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/apt_changelog_viewer/main.py:64 src/apt_changelog_viewer/main.py:76
-#: src/apt_changelog_viewer/main.py:449
+#: src/apt_changelog_viewer/main.py:453
 msgid "Apt Changelog Viewer"
 msgstr "Apt Changelog Viewer"
 
@@ -34,8 +34,8 @@ msgstr "Sök igenom installerade paket"
 msgid "Search packages or descriptions..."
 msgstr "Sök efter paket eller beskrivningar..."
 
-#: src/apt_changelog_viewer/main.py:92 src/apt_changelog_viewer/main.py:388
-#: src/apt_changelog_viewer/main.py:391
+#: src/apt_changelog_viewer/main.py:92 src/apt_changelog_viewer/main.py:392
+#: src/apt_changelog_viewer/main.py:395
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -120,23 +120,27 @@ msgstr ""
 "Det finns ingen lokal ändringslogg. Välj Hämta ändringsloggen från nätet om "
 "du vill begära den från APT:s konfigurerade källa."
 
-#: src/apt_changelog_viewer/main.py:285
+#: src/apt_changelog_viewer/main.py:284
+msgid "Changelog shortened; only the first 50,000 characters are shown."
+msgstr "Ändringsloggen har kortats ned; endast de första 50 000 tecknen visas."
+
+#: src/apt_changelog_viewer/main.py:289
 msgid "Online changelog loaded"
 msgstr "Ändringsloggen från nätet har lästs in"
 
-#: src/apt_changelog_viewer/main.py:287
+#: src/apt_changelog_viewer/main.py:291
 msgid "Local changelog loaded"
 msgstr "Den lokala ändringsloggen har lästs in"
 
-#: src/apt_changelog_viewer/main.py:289
+#: src/apt_changelog_viewer/main.py:293
 msgid "No local changelog found"
 msgstr "Ingen lokal ändringslogg hittades"
 
-#: src/apt_changelog_viewer/main.py:314
+#: src/apt_changelog_viewer/main.py:318
 msgid "Fetch this changelog from your configured APT source?"
 msgstr "Hämta ändringsloggen från den APT-källa som har konfigurerats?"
 
-#: src/apt_changelog_viewer/main.py:315
+#: src/apt_changelog_viewer/main.py:319
 #, python-format
 msgid ""
 "APT will contact the changelog server configured by your software sources to "
@@ -147,23 +151,23 @@ msgstr ""
 "och begär %(package)s. Servern kan se din IP-adress och paketnamnet. Inga "
 "paket installeras. Vill du fortsätta?"
 
-#: src/apt_changelog_viewer/main.py:317
+#: src/apt_changelog_viewer/main.py:321
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/apt_changelog_viewer/main.py:318
+#: src/apt_changelog_viewer/main.py:322
 msgid "Fetch changelog"
 msgstr "Hämta ändringslogg"
 
-#: src/apt_changelog_viewer/main.py:334
+#: src/apt_changelog_viewer/main.py:338
 msgid "Fetching changelog from the configured APT source…"
 msgstr "Hämtar ändringsloggen från den konfigurerade APT-källan …"
 
-#: src/apt_changelog_viewer/main.py:349
+#: src/apt_changelog_viewer/main.py:353
 msgid "APT tools are not available on this system."
 msgstr "APT-verktygen är inte tillgängliga på det här systemet."
 
-#: src/apt_changelog_viewer/main.py:350
+#: src/apt_changelog_viewer/main.py:354
 msgid ""
 "The changelog request timed out. Your local changelog, if available, is "
 "still shown."
@@ -171,15 +175,15 @@ msgstr ""
 "Begäran om ändringsloggen tog för lång tid. Den lokala ändringsloggen visas "
 "fortfarande, om den finns."
 
-#: src/apt_changelog_viewer/main.py:351
+#: src/apt_changelog_viewer/main.py:355
 msgid "The APT source returned an empty changelog."
 msgstr "APT-källan skickade tillbaka en tom ändringslogg."
 
-#: src/apt_changelog_viewer/main.py:352
+#: src/apt_changelog_viewer/main.py:356
 msgid "The package name is not valid."
 msgstr "Paketnamnet är ogiltigt."
 
-#: src/apt_changelog_viewer/main.py:354
+#: src/apt_changelog_viewer/main.py:358
 msgid ""
 "Could not fetch the changelog. Check your configured software sources or "
 "network connection."
@@ -187,31 +191,31 @@ msgstr ""
 "Det gick inte att hämta ändringsloggen. Kontrollera programkällorna eller "
 "nätverksanslutningen."
 
-#: src/apt_changelog_viewer/main.py:395
+#: src/apt_changelog_viewer/main.py:399
 msgid "Display"
 msgstr "Visning"
 
-#: src/apt_changelog_viewer/main.py:396
+#: src/apt_changelog_viewer/main.py:400
 msgid "Highlight security references"
 msgstr "Markera säkerhetsreferenser"
 
-#: src/apt_changelog_viewer/main.py:428
+#: src/apt_changelog_viewer/main.py:432
 msgid "Debug info copied"
 msgstr "Felsökningsinformation kopierades"
 
-#: src/apt_changelog_viewer/main.py:434
+#: src/apt_changelog_viewer/main.py:438
 msgid "General"
 msgstr "Allmänt"
 
-#: src/apt_changelog_viewer/main.py:436
+#: src/apt_changelog_viewer/main.py:440
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/apt_changelog_viewer/main.py:437
+#: src/apt_changelog_viewer/main.py:441
 msgid "Keyboard shortcuts"
 msgstr "Tangentbordsgenvägar"
 
-#: src/apt_changelog_viewer/main.py:456
+#: src/apt_changelog_viewer/main.py:460
 msgid ""
 "View package changelogs and highlight CVE and distribution security advisory "
 "references."

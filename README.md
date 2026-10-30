@@ -4,7 +4,7 @@ View changelogs for installed Debian/Ubuntu packages. CVE and Debian/Ubuntu secu
 
 Search the installed package list by package name or package description.
 
-Selecting a package reads only its local changelog. Use **Fetch online changelog** to request a remote copy. The app asks before contacting the APT-configured changelog server and explains that it can see your IP address and the package name. The request uses APT's configured source; Apt Changelog Viewer does not install packages or upload a report.
+Selecting a package reads up to 50,000 characters of its local changelog. Use **Fetch online changelog** to request a remote copy. The app asks before contacting the APT-configured changelog server and explains that it can see your IP address and the package name. The request uses APT's configured source; Apt Changelog Viewer does not install packages or upload a report.
 
 Built with GTK4/Adwaita. Part of the [Danne L10n Suite](https://github.com/yeager/debian-repo).
 

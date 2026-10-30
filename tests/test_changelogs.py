@@ -20,6 +20,25 @@ class LocalChangelogTests(unittest.TestCase):
 
         self.assertIn("1.2-3", text)
 
+    def test_limits_decompressed_changelog_size(self):
+        with tempfile.TemporaryDirectory() as directory:
+            changelog_path = Path(directory) / "libexample1" / "changelog.Debian.gz"
+            changelog_path.parent.mkdir()
+            with gzip.open(changelog_path, "wt", encoding="utf-8") as changelog:
+                changelog.write("x" * 100_000)
+
+            text = read_local_changelog("libexample1", directory, max_chars=128)
+
+        self.assertEqual(text, "x" * 128)
+
+    def test_rejects_invalid_changelog_size_limit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            for max_chars in (0, -1, True, "100"):
+                with self.subTest(max_chars=max_chars):
+                    self.assertIsNone(
+                        read_local_changelog("libexample1", directory, max_chars=max_chars),
+                    )
+
     def test_returns_none_when_local_changelog_is_missing(self):
         with tempfile.TemporaryDirectory() as directory:
             self.assertIsNone(read_local_changelog("libexample1", directory))
