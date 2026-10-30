@@ -25,6 +25,12 @@ jobs:
         run: msgfmt --check --check-format --statistics po/sv.po -o /tmp/apt-changelog-viewer.mo
       - name: Run tests
         run: xvfb-run -a env PYTHONPATH=src python3 -m unittest discover -s tests -v
+      - name: Build Debian package and verify its runtime dependencies
+        run: |
+          dpkg-buildpackage -us -uc -b
+          package=$(find .. -maxdepth 1 -name 'apt-changelog-viewer_*_all.deb' -print -quit)
+          test -n "$package"
+          dpkg-deb -f "$package" Depends | grep -q 'gir1.2-adw-1'
       - name: Build and validate PyPI distributions
         uses: actions/setup-python@v5
         with:
@@ -34,9 +40,3 @@ jobs:
           python -m pip install --upgrade build twine
           python -m build
           python -m twine check dist/*
-      - name: Build Debian package and verify its runtime dependencies
-        run: |
-          dpkg-buildpackage -us -uc -b
-          package=$(find .. -maxdepth 1 -name 'apt-changelog-viewer_*_all.deb' -print -quit)
-          test -n "$package"
-          dpkg-deb -f "$package" Depends | grep -q 'gir1.2-adw-1'
