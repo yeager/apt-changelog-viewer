@@ -5,6 +5,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 class ReleaseSanityTests(unittest.TestCase):
+    def test_debian_installation_explains_the_repository_setup(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("https://github.com/yeager/debian-repo#setup", readme)
+        self.assertIn("sudo apt install apt-changelog-viewer", readme)
+        self.assertIn("https://github.com/yeager/apt-changelog-viewer/releases/latest", readme)
+
     def test_python_sources_do_not_call_locale_bindtextdomain(self):
         for path in ROOT.rglob("*.py"):
             if ".git" in path.parts or "build" in path.parts or "tests" in path.parts:

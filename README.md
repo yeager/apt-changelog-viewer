@@ -10,7 +10,7 @@ Built with GTK4/Adwaita. Part of the [Danne L10n Suite](https://github.com/yeage
 
 ## Installation
 
-## Installation from PyPI
+### From PyPI
 
 GTK4, libadwaita and PyGObject must be installed from your distribution (they
 are native system libraries and are not installed by pip). On Debian/Ubuntu:
@@ -23,9 +23,16 @@ pipx install --system-site-packages apt-changelog-viewer
 
 
 ### Debian/Ubuntu
+
+To install from APT, first add the [Danne L10n Suite repository](https://github.com/yeager/debian-repo#setup), then run:
+
 ```bash
 sudo apt install apt-changelog-viewer
 ```
+
+Alternatively, download the latest
+[`apt-changelog-viewer_<version>-1_all.deb`](https://github.com/yeager/apt-changelog-viewer/releases/latest)
+and install it with `sudo apt install ./apt-changelog-viewer_<version>-1_all.deb`.
 
 ## License
 
