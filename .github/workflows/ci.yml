@@ -25,6 +25,15 @@ jobs:
         run: msgfmt --check --check-format --statistics po/sv.po -o /tmp/apt-changelog-viewer.mo
       - name: Run tests
         run: xvfb-run -a env PYTHONPATH=src python3 -m unittest discover -s tests -v
+      - name: Build and validate PyPI distributions
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check wheel and source distribution
+        run: |
+          python -m pip install --upgrade build twine
+          python -m build
+          python -m twine check dist/*
       - name: Build Debian package and verify its runtime dependencies
         run: |
           dpkg-buildpackage -us -uc -b
