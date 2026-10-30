@@ -1,1 +1,18 @@
 *.mo
+
+# Python build output
+build/
+dist/
+*.egg-info/
+
+# Debian packaging artifacts
+debian/.debhelper/
+debian/.debhelper.log
+debian/*.debhelper
+debian/*.substvars
+debian/files
+debian/tmp/
+../*.deb
+../*.build
+../*.buildinfo
+../*.changes

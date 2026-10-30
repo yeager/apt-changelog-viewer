@@ -32,5 +32,20 @@ class ReleaseSanityTests(unittest.TestCase):
         self.assertIsNotNone(debian_version)
         self.assertEqual(metadata_version.group(1), debian_version.group(1).split("-", 1)[0])
 
+    def test_generated_package_artifacts_are_not_tracked(self):
+        gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
+        for pattern in ("build/", "dist/", "debian/files", "../*.deb", "../*.buildinfo"):
+            self.assertIn(pattern, gitignore)
+
+        import subprocess
+        tracked = subprocess.run(
+            ["git", "ls-files", "build", "debian/files"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.splitlines()
+        self.assertEqual([], tracked)
+
 if __name__ == "__main__":
     unittest.main()
