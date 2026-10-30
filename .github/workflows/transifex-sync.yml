@@ -1,6 +1,7 @@
 name: Transifex Sync
 on:
   push:
+    branches: [main]
     paths: ['po/*.pot']
   workflow_dispatch:
 
