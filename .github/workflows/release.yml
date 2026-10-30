@@ -3,6 +3,12 @@ name: Release
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing version tag to release
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -14,16 +20,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+          ref: ${{ inputs.release_tag || github.ref }}
 
       - name: Verify tag version and main ancestry
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
-          python - <<'PY'
+          python3 - <<'PY'
           import os
           import tomllib
           from pathlib import Path
@@ -33,7 +36,8 @@ jobs:
           if tag != f"v{version}":
               raise SystemExit(f"Tag {tag} does not match project version {version}")
           PY
-          git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+          tag_commit=$(git rev-parse "${RELEASE_TAG}^{commit}")
+          git merge-base --is-ancestor "$tag_commit" origin/main
 
       - name: Install Debian build and desktop dependencies
         run: |
@@ -54,6 +58,10 @@ jobs:
           mkdir -p dist
           cp ../apt-changelog-viewer_*_all.deb dist/
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - name: Build and validate PyPI distributions
         run: |
           python -m pip install --upgrade build twine
@@ -63,8 +71,9 @@ jobs:
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/* \
-            --title "$GITHUB_REF_NAME" \
+          gh release create "$RELEASE_TAG" dist/* \
+            --title "$RELEASE_TAG" \
             --generate-notes \
             --repo "$GITHUB_REPOSITORY"
