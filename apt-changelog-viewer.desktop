@@ -1,7 +1,9 @@
 [Desktop Entry]
 Type=Application
-Name=apt-changelog-viewer
-Comment=GTK4 changelog viewer with highlighted security references
+Name=APT Changelog Viewer
+Name[sv]=APT Changelog Viewer
+Comment=Browse installed package changelogs and security references
+Comment[sv]=Visa ändringsloggar och säkerhetsreferenser för installerade paket
 Exec=apt-changelog-viewer
 Icon=applications-other-symbolic
 Terminal=false
