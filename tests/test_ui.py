@@ -7,7 +7,9 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, Gtk
 
-from apt_changelog_viewer.main import AptChangelogViewerApp, AptChangelogViewerWindow, _list_installed
+from apt_changelog_viewer.main import (
+    AptChangelogViewerApp, AptChangelogViewerWindow, _list_installed,
+)
 
 
 class ChangelogWindowTests(unittest.TestCase):

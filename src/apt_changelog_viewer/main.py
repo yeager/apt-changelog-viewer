@@ -7,9 +7,9 @@ from gi.repository import Gtk, Adw, Gdk, Gio, GLib, Pango
 import gettext
 import os
 import sys
-import json
 import threading
 import subprocess
+from apt_changelog_viewer.settings import load_settings as _load_settings, save_settings as _save_settings
 from apt_changelog_viewer.changelogs import MAX_CHANGELOG_CHARS, fetch_changelog_through_apt, find_security_references, read_local_changelog
 
 LOCALE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "po")
@@ -20,27 +20,6 @@ gettext.textdomain("apt-changelog-viewer")
 _ = gettext.gettext
 
 APP_ID = "se.danielnylander.apt.changelog.viewer"
-SETTINGS_DIR = os.path.join(
-    os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")),
-    "apt-changelog-viewer"
-)
-SETTINGS_FILE = os.path.join(SETTINGS_DIR, "settings.json")
-
-
-def _load_settings():
-    if os.path.exists(SETTINGS_FILE):
-        with open(SETTINGS_FILE) as f:
-            return json.load(f)
-    return {"welcome_shown": False}
-
-
-def _save_settings(s):
-    os.makedirs(SETTINGS_DIR, exist_ok=True)
-    with open(SETTINGS_FILE, "w") as f:
-        json.dump(s, f, indent=2)
-
-
-
 def _list_installed():
     """List installed packages, or return None when dpkg-query fails."""
     pkgs = []
