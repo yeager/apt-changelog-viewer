@@ -1,3 +1,9 @@
+apt-changelog-viewer (0.1.6-1) unstable; urgency=medium
+
+  * Prevent overlapping package scans and keep the scan control state in sync.
+
+ -- Daniel Nylander <daniel@danielnylander.se>  Fri, 30 Oct 2026 18:30:00 +0100
+
 apt-changelog-viewer (0.1.5-1) unstable; urgency=medium
 
   * Harden settings storage and recover cleanly from malformed configuration.

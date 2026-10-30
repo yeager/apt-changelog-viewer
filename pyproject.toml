@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 readme = "README.md"
 name = "apt-changelog-viewer"
-version = "0.1.5"
+version = "0.1.6"
 description = "GTK4 changelog viewer with highlighted CVE and Debian/Ubuntu security advisory references"
 requires-python = ">=3.10"
 license = {text = "GPL-3.0-or-later"}
