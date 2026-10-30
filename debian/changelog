@@ -4,6 +4,8 @@ apt-changelog-viewer (0.1.8-1) unstable; urgency=medium
 
  -- Daniel Nylander <daniel@danielnylander.se>  Fri, 30 Oct 2026 20:36:16 +0100
 
+apt-changelog-viewer (0.1.7-1) unstable; urgency=medium
+
   * Give the GNOME launcher a readable product name and Swedish description.
 
  -- Daniel Nylander <daniel@danielnylander.se>  Fri, 30 Oct 2026 19:25:00 +0100
