@@ -36,16 +36,8 @@ class ReleaseSanityTests(unittest.TestCase):
         gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
         for pattern in ("build/", "dist/", "debian/files", "../*.deb", "../*.buildinfo"):
             self.assertIn(pattern, gitignore)
-
-        import subprocess
-        tracked = subprocess.run(
-            ["git", "ls-files", "build", "debian/files"],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        ).stdout.splitlines()
-        self.assertEqual([], tracked)
+        self.assertFalse((ROOT / "build").exists())
+        self.assertFalse((ROOT / "debian/files").exists())
 
 if __name__ == "__main__":
     unittest.main()
