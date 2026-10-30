@@ -42,18 +42,20 @@ def _save_settings(s):
 
 
 def _list_installed():
-    """List installed packages."""
+    """List installed packages, or return None when dpkg-query fails."""
     pkgs = []
     try:
         r = subprocess.run(["dpkg-query", "-W", "-f", "${Package}\t${Version}\t${Description}\n"],
-                          capture_output=True, text=True, timeout=10)
+                          capture_output=True, text=True, timeout=10, check=False)
+        if r.returncode != 0:
+            return None
         for line in r.stdout.splitlines():
             parts = line.split("\t", 2)
             if len(parts) >= 2:
                 pkgs.append({"name": parts[0], "version": parts[1],
                             "description": parts[2] if len(parts) > 2 else ""})
-    except:
-        pass
+    except (OSError, subprocess.SubprocessError):
+        return None
     return pkgs
 
 
@@ -194,7 +196,14 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
 
     def _do_scan(self):
         pkgs = _list_installed()
+        if pkgs is None:
+            GLib.idle_add(self._show_scan_error)
+            return
         GLib.idle_add(self._show_packages, pkgs)
+
+    def _show_scan_error(self):
+        self._status.set_text(_("Could not read the installed package list. Check that dpkg-query is available and try again."))
+        return GLib.SOURCE_REMOVE
 
     def _show_packages(self, pkgs):
         self._packages = pkgs

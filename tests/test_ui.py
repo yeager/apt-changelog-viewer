@@ -1,3 +1,4 @@
+import subprocess
 import unittest
 from unittest.mock import Mock, patch
 
@@ -6,7 +7,7 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, Gtk
 
-from apt_changelog_viewer.main import AptChangelogViewerApp, AptChangelogViewerWindow
+from apt_changelog_viewer.main import AptChangelogViewerApp, AptChangelogViewerWindow, _list_installed
 
 
 class ChangelogWindowTests(unittest.TestCase):
@@ -89,6 +90,43 @@ class ChangelogWindowTests(unittest.TestCase):
         self.window._show_welcome()
         self.app._on_settings()
         self.app._on_about()
+
+    def test_package_scan_error_does_not_look_like_an_empty_package_list(self):
+        status = Mock()
+        window = Mock()
+        window._status = status
+
+        AptChangelogViewerWindow._show_scan_error(window)
+
+        message = status.set_text.call_args.args[0]
+        self.assertIn("Could not read the installed package list", message)
+        self.assertIn("dpkg-query", message)
+
+
+class InstalledPackageQueryTests(unittest.TestCase):
+    @patch("apt_changelog_viewer.main.subprocess.run")
+    def test_lists_packages_when_dpkg_query_succeeds(self, run):
+        run.return_value.returncode = 0
+        run.return_value.stdout = "libexample1\t1.2-3\tExample package\n"
+
+        self.assertEqual(_list_installed(), [{
+            "name": "libexample1", "version": "1.2-3", "description": "Example package",
+        }])
+
+    @patch("apt_changelog_viewer.main.subprocess.run")
+    def test_reports_nonzero_dpkg_query_exit_as_failure(self, run):
+        run.return_value.returncode = 1
+        run.return_value.stdout = ""
+
+        self.assertIsNone(_list_installed())
+
+    @patch("apt_changelog_viewer.main.subprocess.run", side_effect=FileNotFoundError)
+    def test_reports_missing_dpkg_query_as_failure(self, _run):
+        self.assertIsNone(_list_installed())
+
+    @patch("apt_changelog_viewer.main.subprocess.run", side_effect=subprocess.TimeoutExpired("dpkg-query", 10))
+    def test_reports_timed_out_dpkg_query_as_failure(self, _run):
+        self.assertIsNone(_list_installed())
 
 
 if __name__ == "__main__":
