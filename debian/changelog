@@ -1,4 +1,8 @@
-apt-changelog-viewer (0.1.7-1) unstable; urgency=medium
+apt-changelog-viewer (0.1.8-1) unstable; urgency=medium
+
+  * Limit oversized remote changelogs before passing them to the GTK view.
+
+ -- Daniel Nylander <daniel@danielnylander.se>  Fri, 30 Oct 2026 20:36:16 +0100
 
   * Give the GNOME launcher a readable product name and Swedish description.
 
