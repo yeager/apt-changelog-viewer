@@ -5,15 +5,12 @@ gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, Gdk, Gio, GLib, Pango
 
 import gettext
-import locale
 import os
 import sys
 import json
-import datetime
 import threading
 import subprocess
-import re
-from apt_changelog_viewer.accessibility import AccessibilityManager
+from apt_changelog_viewer.changelogs import fetch_changelog_through_apt, find_security_references, read_local_changelog
 
 LOCALE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "po")
 if not os.path.isdir(LOCALE_DIR):
@@ -60,32 +57,12 @@ def _list_installed():
     return pkgs
 
 
-def _get_changelog(package):
-    """Get changelog for a package."""
-    try:
-        r = subprocess.run(["apt-get", "changelog", package, "--print-uris"],
-                          capture_output=True, text=True, timeout=10)
-        if r.stdout.strip():
-            import urllib.request
-            url = r.stdout.strip().split("'")[1] if "'" in r.stdout else r.stdout.strip()
-            with urllib.request.urlopen(url, timeout=10) as resp:
-                return resp.read().decode(errors="replace")
-    except:
-        pass
-    # Fallback: local changelog
-    path = f"/usr/share/doc/{package}/changelog.Debian.gz"
-    if os.path.exists(path):
-        import gzip
-        with gzip.open(path, "rt", errors="replace") as f:
-            return f.read()
-    return _("No changelog available")
-
-
-
 class AptChangelogViewerWindow(Adw.ApplicationWindow):
     def __init__(self, app):
         super().__init__(application=app, title=_("Apt Changelog Viewer"), default_width=1000, default_height=700)
         self.settings = _load_settings()
+        self._highlight_security = self.settings.get("highlight_security_updates", True)
+        self._current_changelog = ""
         
         self._packages = []
         self._current_pkg = None
@@ -117,6 +94,10 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
         menu_btn = Gtk.MenuButton(icon_name="open-menu-symbolic", menu_model=menu)
         headerbar.pack_end(menu_btn)
 
+        self._fetch_button = Gtk.Button(label=_("Fetch online changelog"), sensitive=False)
+        self._fetch_button.connect("clicked", self._on_fetch_changelog)
+        headerbar.pack_end(self._fetch_button)
+
         main_box.append(headerbar)
 
         
@@ -135,6 +116,10 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
         self._changelog_view = Gtk.TextView(editable=False, monospace=True, wrap_mode=Gtk.WrapMode.WORD_CHAR)
         self._changelog_view.set_top_margin(8)
         self._changelog_view.set_left_margin(8)
+        self._changelog_buffer = self._changelog_view.get_buffer()
+        self._security_reference_tag = self._changelog_buffer.create_tag(
+            "security-reference", weight=Pango.Weight.BOLD, underline=Pango.Underline.SINGLE,
+        )
         right_scroll.set_child(self._changelog_view)
         paned.set_end_child(right_scroll)
         paned.set_position(380)
@@ -156,20 +141,26 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
             GLib.idle_add(self._show_welcome)
 
     def _show_welcome(self):
-        dialog = Adw.Dialog()
-        dialog.set_title(_("Welcome"))
-        dialog.set_content_width(420)
-        dialog.set_content_height(480)
+        uses_adaptive_dialog = hasattr(Adw, "Dialog")
+        if uses_adaptive_dialog:
+            dialog = Adw.Dialog()
+            dialog.set_title(_("Welcome"))
+            dialog.set_content_width(420)
+            dialog.set_content_height(480)
+        else:
+            dialog = Adw.Window(
+                transient_for=self, modal=True, title=_("Welcome"),
+                default_width=420, default_height=480,
+            )
 
         page = Adw.StatusPage()
         page.set_icon_name("text-x-changelog-symbolic")
         page.set_title(_("Welcome to Apt Changelog Viewer"))
         page.set_description(_("Browse package changelogs.\n\n"
-            "✓ View changelogs for installed packages\n"
-            "✓ Security update highlighting\n"
-            "✓ Search installed packages\n"
-            "✓ Quick package info\n"
-            "✓ Mark important updates"))
+            "✓ Read local changelogs without a network request\n"
+            "✓ Fetch remote changelogs only after confirmation\n"
+            "✓ Highlight CVE and distribution advisory references\n"
+            "✓ Search installed packages"))
 
         btn = Gtk.Button(label=_("Get Started"))
         btn.add_css_class("suggested-action")
@@ -184,8 +175,12 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
         hb.set_show_title(False)
         box.add_top_bar(hb)
         box.set_content(page)
-        dialog.set_child(box)
-        dialog.present(self)
+        if uses_adaptive_dialog:
+            dialog.set_child(box)
+            dialog.present(self)
+        else:
+            dialog.set_content(box)
+            dialog.present()
 
     def _on_welcome_close(self, btn, dialog):
         self.settings["welcome_shown"] = True
@@ -246,16 +241,99 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
             return
         pkg = row._pkg_name
         self._current_pkg = pkg
+        self._fetch_button.set_sensitive(False)
         self._title_widget.set_subtitle(pkg)
-        self._changelog_view.get_buffer().set_text(_("Loading changelog..."))
-        threading.Thread(target=self._load_changelog, args=(pkg,), daemon=True).start()
+        self._status.set_text(_("Checking for a local changelog…"))
+        self._changelog_view.get_buffer().set_text(_("Reading the local changelog…"))
+        threading.Thread(target=self._load_local_changelog, args=(pkg,), daemon=True).start()
 
-    def _load_changelog(self, pkg):
-        text = _get_changelog(pkg)
-        GLib.idle_add(self._show_changelog, text)
+    def _load_local_changelog(self, pkg):
+        text = read_local_changelog(pkg)
+        if text is None:
+            display_text = _("No local changelog is installed. Choose Fetch online changelog to request one from the APT-configured source.")
+        else:
+            display_text = text
+        GLib.idle_add(self._show_changelog, pkg, display_text, "local", text is not None)
 
-    def _show_changelog(self, text):
-        self._changelog_view.get_buffer().set_text(text[:50000])
+    def _show_changelog(self, pkg, text, source, has_local=True):
+        if pkg != self._current_pkg:
+            return GLib.SOURCE_REMOVE
+        self._fetch_button.set_sensitive(True)
+        self._current_changelog = text[:50000]
+        self._changelog_buffer.set_text(self._current_changelog)
+        self._apply_security_highlights()
+        if source == "remote":
+            self._status.set_text(_("Online changelog loaded"))
+        elif has_local:
+            self._status.set_text(_("Local changelog loaded"))
+        else:
+            self._status.set_text(_("No local changelog found"))
+        return GLib.SOURCE_REMOVE
+
+    def _apply_security_highlights(self):
+        start, end = self._changelog_buffer.get_bounds()
+        self._changelog_buffer.remove_tag(self._security_reference_tag, start, end)
+        if not self._highlight_security:
+            return
+        for offset, limit in find_security_references(self._current_changelog):
+            self._changelog_buffer.apply_tag(
+                self._security_reference_tag,
+                self._changelog_buffer.get_iter_at_offset(offset),
+                self._changelog_buffer.get_iter_at_offset(limit),
+            )
+
+    def _on_fetch_changelog(self, *_args):
+        pkg = self._current_pkg
+        if not pkg:
+            return
+        self._fetch_button.set_sensitive(False)
+        dialog = Gtk.MessageDialog(
+            transient_for=self,
+            modal=True,
+            message_type=Gtk.MessageType.QUESTION,
+            buttons=Gtk.ButtonsType.NONE,
+            text=_("Fetch this changelog from your configured APT source?"),
+            secondary_text=_("APT will contact the changelog server configured by your software sources to request %(package)s. That server can see your IP address and the package name. No packages will be installed. Continue?") % {"package": pkg},
+        )
+        dialog.add_button(_("Cancel"), Gtk.ResponseType.CANCEL)
+        dialog.add_button(_("Fetch changelog"), Gtk.ResponseType.ACCEPT)
+        dialog.set_default_response(Gtk.ResponseType.CANCEL)
+        dialog.connect("response", self._on_fetch_dialog_response, pkg)
+        dialog.present()
+
+    def _on_fetch_dialog_response(self, _dialog, response, pkg):
+        selected = "fetch" if response == Gtk.ResponseType.ACCEPT else "cancel"
+        self._on_fetch_changelog_response(_dialog, selected, pkg)
+
+    def _on_fetch_changelog_response(self, _dialog, response, pkg):
+        if pkg != self._current_pkg:
+            return
+        if response != "fetch":
+            self._fetch_button.set_sensitive(True)
+            return
+        self._fetch_button.set_sensitive(False)
+        self._status.set_text(_("Fetching changelog from the configured APT source…"))
+        threading.Thread(target=self._load_remote_changelog, args=(pkg,), daemon=True).start()
+
+    def _load_remote_changelog(self, pkg):
+        text, error = fetch_changelog_through_apt(pkg)
+        GLib.idle_add(self._show_remote_changelog, pkg, text, error)
+
+    def _show_remote_changelog(self, pkg, text, error):
+        if pkg != self._current_pkg:
+            return GLib.SOURCE_REMOVE
+        self._fetch_button.set_sensitive(True)
+        if text is not None:
+            self._show_changelog(pkg, text, "remote")
+        else:
+            messages = {
+                "apt-unavailable": _("APT tools are not available on this system."),
+                "timeout": _("The changelog request timed out. Your local changelog, if available, is still shown."),
+                "empty-response": _("The APT source returned an empty changelog."),
+                "invalid-package": _("The package name is not valid."),
+            }
+            self._status.set_text(messages.get(error, _("Could not fetch the changelog. Check your configured software sources or network connection.")))
+        return GLib.SOURCE_REMOVE
 
 
 class AptChangelogViewerApp(Adw.Application):
@@ -285,17 +363,35 @@ class AptChangelogViewerApp(Adw.Application):
     def _on_settings(self, *_args):
         if not self.window:
             return
-        dialog = Adw.PreferencesDialog()
-        dialog.set_title(_("Settings"))
+        uses_preferences_dialog = hasattr(Adw, "PreferencesDialog")
+        if uses_preferences_dialog:
+            dialog = Adw.PreferencesDialog()
+            dialog.set_title(_("Settings"))
+        else:
+            dialog = Adw.PreferencesWindow(
+                transient_for=self.window, modal=True, title=_("Settings"),
+            )
         page = Adw.PreferencesPage()
         
         group = Adw.PreferencesGroup(title=_("Display"))
-        row = Adw.SwitchRow(title=_("Highlight security updates"))
-        row.set_active(True)
+        row = Adw.SwitchRow(title=_("Highlight security references"))
+        row.set_active(self.window._highlight_security)
+        row.connect("notify::active", self._on_security_highlighting_changed)
         group.add(row)
         page.add(group)
         dialog.add(page)
-        dialog.present(self.window)
+        if uses_preferences_dialog:
+            dialog.present(self.window)
+        else:
+            dialog.present()
+
+    def _on_security_highlighting_changed(self, row, _property):
+        if not self.window:
+            return
+        self.window._highlight_security = row.get_active()
+        self.window.settings["highlight_security_updates"] = self.window._highlight_security
+        _save_settings(self.window.settings)
+        self.window._apply_security_highlights()
 
     def _on_copy_debug(self, *_args):
         if not self.window:
@@ -328,7 +424,9 @@ class AptChangelogViewerApp(Adw.Application):
 
     def _on_about(self, *_args):
         from . import __version__
-        dialog = Adw.AboutDialog(
+        uses_about_dialog = hasattr(Adw, "AboutDialog")
+        about_window = Adw.AboutDialog if uses_about_dialog else Adw.AboutWindow
+        dialog = about_window(
             application_name=_("Apt Changelog Viewer"),
             application_icon="text-x-changelog-symbolic",
             version=__version__,
@@ -336,9 +434,12 @@ class AptChangelogViewerApp(Adw.Application):
             website="https://github.com/yeager/apt-changelog-viewer",
             license_type=Gtk.License.GPL_3_0,
             issue_url="https://github.com/yeager/apt-changelog-viewer/issues",
-            comments=_("View changelogs for installed packages. Get notified about security updates."),
+            comments=_("View package changelogs and highlight CVE and distribution security advisory references."),
         )
-        dialog.present(self.window)
+        if uses_about_dialog:
+            dialog.present(self.window)
+        else:
+            dialog.present()
 
     def _on_quit(self, *_args):
         self.quit()

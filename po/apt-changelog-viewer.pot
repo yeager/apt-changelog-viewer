@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the apt-changelog-viewer package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: apt-changelog-viewer\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-22 17:04+0100\n"
+"POT-Creation-Date: 2026-10-30 12:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,130 +17,183 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:81
-#: src/apt_changelog_viewer/main.py:82
-msgid "No changelog available"
-msgstr ""
-
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:87
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:97
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:332
-#: src/apt_changelog_viewer/main.py:88 src/apt_changelog_viewer/main.py:98
-#: src/apt_changelog_viewer/main.py:333
+#: src/apt_changelog_viewer/main.py:62 src/apt_changelog_viewer/main.py:74
+#: src/apt_changelog_viewer/main.py:426
 msgid "Apt Changelog Viewer"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:102
-#: src/apt_changelog_viewer/main.py:103
+#: src/apt_changelog_viewer/main.py:79
 msgid "Scan installed packages"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:106
-#: src/apt_changelog_viewer/main.py:107
+#: src/apt_changelog_viewer/main.py:83
 msgid "Search packages..."
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:113
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:289
-#: src/apt_changelog_viewer/main.py:114 src/apt_changelog_viewer/main.py:290
+#: src/apt_changelog_viewer/main.py:90 src/apt_changelog_viewer/main.py:365
+#: src/apt_changelog_viewer/main.py:368
 msgid "Settings"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:114
-#: src/apt_changelog_viewer/main.py:115
+#: src/apt_changelog_viewer/main.py:91
 msgid "Copy Debug Info"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:115
-#: src/apt_changelog_viewer/main.py:116
+#: src/apt_changelog_viewer/main.py:92
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:116
-#: src/apt_changelog_viewer/main.py:117
+#: src/apt_changelog_viewer/main.py:93
 msgid "About Apt Changelog Viewer"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:145
-#: src/apt_changelog_viewer/main.py:146
+#: src/apt_changelog_viewer/main.py:97
+msgid "Fetch online changelog"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:130
 msgid "Ready"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:160
-#: src/apt_changelog_viewer/main.py:161
+#: src/apt_changelog_viewer/main.py:147 src/apt_changelog_viewer/main.py:152
 msgid "Welcome"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:166
-#: src/apt_changelog_viewer/main.py:167
+#: src/apt_changelog_viewer/main.py:158
 msgid "Welcome to Apt Changelog Viewer"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:167
-#: src/apt_changelog_viewer/main.py:168
+#: src/apt_changelog_viewer/main.py:159
 msgid ""
 "Browse package changelogs.\n"
 "\n"
-"✓ View changelogs for installed packages\n"
-"✓ Security update highlighting\n"
-"✓ Search installed packages\n"
-"✓ Quick package info\n"
-"✓ Mark important updates"
+"✓ Read local changelogs without a network request\n"
+"✓ Fetch remote changelogs only after confirmation\n"
+"✓ Highlight CVE and distribution advisory references\n"
+"✓ Search installed packages"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:174
-#: src/apt_changelog_viewer/main.py:175
+#: src/apt_changelog_viewer/main.py:165
 msgid "Get Started"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:197
-#: src/apt_changelog_viewer/main.py:198
+#: src/apt_changelog_viewer/main.py:192
 msgid "Scanning installed packages..."
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:239
-#: src/apt_changelog_viewer/main.py:240
+#: src/apt_changelog_viewer/main.py:234
 #, python-format
 msgid "%(count)d packages"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:250
-#: src/apt_changelog_viewer/main.py:251
-msgid "Loading changelog..."
+#: src/apt_changelog_viewer/main.py:246
+msgid "Checking for a local changelog…"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:292
-#: src/apt_changelog_viewer/main.py:293
+#: src/apt_changelog_viewer/main.py:247
+msgid "Reading the local changelog…"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:253
+msgid ""
+"No local changelog is installed. Choose Fetch online changelog to request "
+"one from the APT-configured source."
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:266
+msgid "Online changelog loaded"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:268
+msgid "Local changelog loaded"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:270
+msgid "No local changelog found"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:294
+msgid "Fetch this changelog from your configured APT source?"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:295
+#, python-format
+msgid ""
+"APT will contact the changelog server configured by your software sources to "
+"request %(package)s. That server can see your IP address and the package "
+"name. No packages will be installed. Continue?"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:297
+msgid "Cancel"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:298
+msgid "Fetch changelog"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:311
+msgid "Fetching changelog from the configured APT source…"
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:326
+msgid "APT tools are not available on this system."
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:327
+msgid ""
+"The changelog request timed out. Your local changelog, if available, is "
+"still shown."
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:328
+msgid "The APT source returned an empty changelog."
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:329
+msgid "The package name is not valid."
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:331
+msgid ""
+"Could not fetch the changelog. Check your configured software sources or "
+"network connection."
+msgstr ""
+
+#: src/apt_changelog_viewer/main.py:372
 msgid "Display"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:293
-#: src/apt_changelog_viewer/main.py:294
-msgid "Highlight security updates"
+#: src/apt_changelog_viewer/main.py:373
+msgid "Highlight security references"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:313
-#: src/apt_changelog_viewer/main.py:314
+#: src/apt_changelog_viewer/main.py:405
 msgid "Debug info copied"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:319
-#: src/apt_changelog_viewer/main.py:320
+#: src/apt_changelog_viewer/main.py:411
 msgid "General"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:321
-#: src/apt_changelog_viewer/main.py:322
+#: src/apt_changelog_viewer/main.py:413
 msgid "Quit"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:322
-#: src/apt_changelog_viewer/main.py:323
+#: src/apt_changelog_viewer/main.py:414
 msgid "Keyboard shortcuts"
 msgstr ""
 
-#: build/apt-changelog-viewer_0.1.0_all/usr/lib/python3/dist-packages/apt_changelog_viewer/main.py:339
-#: src/apt_changelog_viewer/main.py:340
+#: src/apt_changelog_viewer/main.py:433
 msgid ""
-"View changelogs for installed packages. Get notified about security updates."
+"View package changelogs and highlight CVE and distribution security advisory "
+"references."
+msgstr ""
+
+#: apt-changelog-viewer.desktop:3
+msgid "apt-changelog-viewer"
+msgstr ""
+
+#: apt-changelog-viewer.desktop:4
+msgid "GTK4 changelog viewer with highlighted security references"
 msgstr ""

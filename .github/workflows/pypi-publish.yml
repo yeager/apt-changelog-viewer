@@ -18,9 +18,12 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install build tools
-        run: python -m pip install --upgrade build twine
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gettext gir1.2-adw-1 gir1.2-gtk-4.0 python3-gi xvfb
+          python -m pip install --upgrade build twine
       - name: Run release sanity tests
-        run: python -m unittest discover -s tests -v
+        run: xvfb-run -a env PYTHONPATH=/usr/lib/python3/dist-packages:src /usr/bin/python3 -m unittest discover -s tests -v
       - name: Build distributions
         run: |
           python -m build

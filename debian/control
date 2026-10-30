@@ -14,8 +14,8 @@ Vcs-Browser: https://github.com/yeager/apt-changelog-viewer
 
 Package: apt-changelog-viewer
 Architecture: all
-Depends: ${python3:Depends}, ${misc:Depends}, python3-gi, gir1.2-gtk-4.0
-Description: GTK4 changelog viewer for installed packages with security alerts
+Depends: ${python3:Depends}, ${misc:Depends}, python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1
+Description: GTK4 changelog viewer with security reference highlighting
  apt-changelog-viewer displays changelogs for installed Debian/Ubuntu
- packages in a modern GTK4 interface. It highlights security updates
- and provides an easy way to review package changes.
+ packages in a modern GTK4 interface. It highlights CVE and distribution
+ security advisory references for review.
