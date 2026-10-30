@@ -7,11 +7,27 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
+      - name: Check Transifex credentials
+        id: credentials
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+        run: |
+          if [ -z "$TX_TOKEN" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Transifex source upload skipped. Add the TX_TOKEN repository secret to enable synchronization."
+            echo 'Transifex source upload skipped because the TX_TOKEN repository secret is not configured.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Install TX CLI
+        if: steps.credentials.outputs.configured == 'true'
         run: pip install transifex-client
       - name: Push source
+        if: steps.credentials.outputs.configured == 'true'
         env:
           TX_TOKEN: ${{ secrets.TX_TOKEN }}
         run: tx push -s --no-interactive
