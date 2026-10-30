@@ -1,7 +1,6 @@
 apt-changelog-viewer (0.1.5-1) unstable; urgency=medium
 
   * Harden settings storage and recover cleanly from malformed configuration.
-  * Use SPDX license metadata supported by current setuptools.
 
  -- Daniel Nylander <daniel@danielnylander.se>  Fri, 30 Oct 2026 16:30:00 +0100
 

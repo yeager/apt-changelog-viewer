@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=77.0.0", "wheel"]
+requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,8 +8,7 @@ name = "apt-changelog-viewer"
 version = "0.1.5"
 description = "GTK4 changelog viewer with highlighted CVE and Debian/Ubuntu security advisory references"
 requires-python = ">=3.10"
-license = "GPL-3.0-or-later"
-license-files = ["LICENSE"]
+license = {text = "GPL-3.0-or-later"}
 authors = [{name = "Daniel Nylander", email = "daniel@danielnylander.se"}]
 
 [project.scripts]
