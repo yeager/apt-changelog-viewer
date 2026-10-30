@@ -67,6 +67,27 @@ class ChangelogWindowTests(unittest.TestCase):
         thread.start.assert_called_once_with()
         self.assertFalse(self.window._fetch_button.get_sensitive())
 
+    def test_package_scan_disables_button_until_results_arrive(self):
+        thread = Mock()
+        with patch("apt_changelog_viewer.main.threading.Thread", return_value=thread) as thread_class:
+            self.window._on_scan(None)
+
+        thread_class.assert_called_once()
+        thread.start.assert_called_once_with()
+        self.assertFalse(self.window._scan_button.get_sensitive())
+
+        with patch.object(self.window, "_populate_list"):
+            self.window._show_packages([])
+
+        self.assertTrue(self.window._scan_button.get_sensitive())
+
+    def test_package_scan_error_reenables_button(self):
+        self.window._scan_button.set_sensitive(False)
+
+        self.window._show_scan_error()
+
+        self.assertTrue(self.window._scan_button.get_sensitive())
+
     def test_cve_and_distribution_advisories_are_highlighted_until_disabled(self):
         text = "Fixes CVE-2025-12345 and USN-7001-2."
         self.window._show_changelog("libexample1", text, "local")

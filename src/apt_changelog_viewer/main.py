@@ -57,9 +57,9 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
         self._title_widget = title_widget
 
         
-        scan_btn = Gtk.Button(icon_name="system-search-symbolic", tooltip_text=_("Scan installed packages"))
-        scan_btn.connect("clicked", self._on_scan)
-        headerbar.pack_start(scan_btn)
+        self._scan_button = Gtk.Button(icon_name="system-search-symbolic", tooltip_text=_("Scan installed packages"))
+        self._scan_button.connect("clicked", self._on_scan)
+        headerbar.pack_start(self._scan_button)
         
         self._search = Gtk.SearchEntry(placeholder_text=_("Search packages or descriptions..."))
         self._search.set_size_request(200, -1)
@@ -170,6 +170,7 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
 
     
     def _on_scan(self, btn):
+        self._scan_button.set_sensitive(False)
         self._status.set_text(_("Scanning installed packages..."))
         threading.Thread(target=self._do_scan, daemon=True).start()
 
@@ -181,10 +182,12 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
         GLib.idle_add(self._show_packages, pkgs)
 
     def _show_scan_error(self):
+        self._scan_button.set_sensitive(True)
         self._status.set_text(_("Could not read the installed package list. Check that dpkg-query is available and try again."))
         return GLib.SOURCE_REMOVE
 
     def _show_packages(self, pkgs):
+        self._scan_button.set_sensitive(True)
         self._packages = pkgs
         self._populate_list()
 
