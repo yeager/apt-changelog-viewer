@@ -17,7 +17,7 @@ jobs:
   release:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           ref: ${{ inputs.release_tag || github.ref }}
@@ -58,7 +58,7 @@ jobs:
           mkdir -p dist
           cp ../apt-changelog-viewer_*_all.deb dist/
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.12"
 

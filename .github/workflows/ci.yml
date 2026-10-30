@@ -12,7 +12,7 @@ jobs:
   test:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
       - name: Install desktop and localization dependencies
         run: |
           sudo apt-get update
@@ -32,7 +32,7 @@ jobs:
           test -n "$package"
           dpkg-deb -f "$package" Depends | grep -q 'gir1.2-adw-1'
       - name: Build and validate PyPI distributions
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.12"
       - name: Check wheel and source distribution
@@ -53,7 +53,7 @@ jobs:
             build-essential ca-certificates dbus-x11 debhelper-compat dh-python \
             gettext gir1.2-adw-1 gir1.2-gtk-4.0 git pybuild-plugin-pyproject \
             python3-all python3-gi python3-setuptools xvfb
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
       - name: Check Python syntax and GTK imports
         run: |
           python3 -m compileall -q src tests
