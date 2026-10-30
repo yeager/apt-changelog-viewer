@@ -77,4 +77,6 @@ def fetch_changelog_through_apt(
         return None, "fetch-failed"
     if not result.stdout.strip():
         return None, "empty-response"
-    return result.stdout, None
+    # Keep oversized remote changelogs from being queued in full for GTK to
+    # render. One extra character lets the UI explain that the text was cut.
+    return result.stdout[:MAX_CHANGELOG_CHARS + 1], None

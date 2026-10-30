@@ -5,7 +5,12 @@ import unittest
 from pathlib import Path
 from unittest.mock import Mock
 
-from apt_changelog_viewer.changelogs import fetch_changelog_through_apt, find_security_references, read_local_changelog
+from apt_changelog_viewer.changelogs import (
+    MAX_CHANGELOG_CHARS,
+    fetch_changelog_through_apt,
+    find_security_references,
+    read_local_changelog,
+)
 
 
 class LocalChangelogTests(unittest.TestCase):
@@ -98,6 +103,15 @@ class RemoteChangelogTests(unittest.TestCase):
 
         self.assertEqual(fetch_changelog_through_apt("libexample1", run=failed), (None, "fetch-failed"))
         self.assertEqual(fetch_changelog_through_apt("libexample1", run=empty), (None, "empty-response"))
+
+    def test_remote_changelog_is_bounded_before_it_reaches_the_ui(self):
+        output = "x" * (MAX_CHANGELOG_CHARS * 4)
+        run = Mock(return_value=Mock(returncode=0, stdout=output, stderr=""))
+
+        text, error = fetch_changelog_through_apt("libexample1", run=run)
+
+        self.assertIsNone(error)
+        self.assertEqual(text, output[:MAX_CHANGELOG_CHARS + 1])
 
 
 if __name__ == "__main__":
