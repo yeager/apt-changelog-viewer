@@ -24,6 +24,33 @@ class ChangelogWindowTests(unittest.TestCase):
     def tearDown(self):
         self.window.destroy()
 
+    def test_package_search_matches_descriptions_case_insensitively(self):
+        self.window._packages = [
+            {"name": "libexample1", "version": "1.2-3", "description": "A NETWORK helper"},
+            {"name": "another", "version": "2.0", "description": "Text utility"},
+        ]
+        self.window._search.set_text("network")
+        self.window._populate_list()
+
+        self.assertEqual(self.window._pkg_list.get_row_at_index(0)._pkg_name, "libexample1")
+        self.assertIsNone(self.window._pkg_list.get_row_at_index(1))
+
+    def test_package_search_keeps_name_and_displays_description(self):
+        self.window._packages = [{
+            "name": "libexample1", "version": "1.2-3", "description": "Example package description",
+        }]
+        self.window._populate_list()
+
+        row = self.window._pkg_list.get_row_at_index(0)
+        self.assertEqual(row._pkg_name, "libexample1")
+        labels = []
+        child = row.get_child().get_first_child()
+        while child:
+            if isinstance(child, Gtk.Label):
+                labels.append(child.get_text())
+            child = child.get_next_sibling()
+        self.assertIn("Example package description", labels)
+
     def test_package_selection_starts_with_local_read_only_check(self):
         row = Mock()
         row._pkg_name = "libexample1"

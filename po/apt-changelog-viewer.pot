@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-30 15:30+0100\n"
+"POT-Creation-Date: 2026-10-30 16:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/apt_changelog_viewer/main.py:64 src/apt_changelog_viewer/main.py:76
-#: src/apt_changelog_viewer/main.py:439
+#: src/apt_changelog_viewer/main.py:449
 msgid "Apt Changelog Viewer"
 msgstr ""
 
@@ -27,11 +27,11 @@ msgid "Scan installed packages"
 msgstr ""
 
 #: src/apt_changelog_viewer/main.py:85
-msgid "Search packages..."
+msgid "Search packages or descriptions..."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:92 src/apt_changelog_viewer/main.py:378
-#: src/apt_changelog_viewer/main.py:381
+#: src/apt_changelog_viewer/main.py:92 src/apt_changelog_viewer/main.py:388
+#: src/apt_changelog_viewer/main.py:391
 msgid "Settings"
 msgstr ""
 
@@ -87,42 +87,42 @@ msgid ""
 "available and try again."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:243
+#: src/apt_changelog_viewer/main.py:253
 #, python-format
 msgid "%(count)d packages"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:255
+#: src/apt_changelog_viewer/main.py:265
 msgid "Checking for a local changelog…"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:256
+#: src/apt_changelog_viewer/main.py:266
 msgid "Reading the local changelog…"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:262
+#: src/apt_changelog_viewer/main.py:272
 msgid ""
 "No local changelog is installed. Choose Fetch online changelog to request "
 "one from the APT-configured source."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:275
+#: src/apt_changelog_viewer/main.py:285
 msgid "Online changelog loaded"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:277
+#: src/apt_changelog_viewer/main.py:287
 msgid "Local changelog loaded"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:279
+#: src/apt_changelog_viewer/main.py:289
 msgid "No local changelog found"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:304
+#: src/apt_changelog_viewer/main.py:314
 msgid "Fetch this changelog from your configured APT source?"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:305
+#: src/apt_changelog_viewer/main.py:315
 #, python-format
 msgid ""
 "APT will contact the changelog server configured by your software sources to "
@@ -130,67 +130,67 @@ msgid ""
 "name. No packages will be installed. Continue?"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:307
+#: src/apt_changelog_viewer/main.py:317
 msgid "Cancel"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:308
+#: src/apt_changelog_viewer/main.py:318
 msgid "Fetch changelog"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:324
+#: src/apt_changelog_viewer/main.py:334
 msgid "Fetching changelog from the configured APT source…"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:339
+#: src/apt_changelog_viewer/main.py:349
 msgid "APT tools are not available on this system."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:340
+#: src/apt_changelog_viewer/main.py:350
 msgid ""
 "The changelog request timed out. Your local changelog, if available, is "
 "still shown."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:341
+#: src/apt_changelog_viewer/main.py:351
 msgid "The APT source returned an empty changelog."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:342
+#: src/apt_changelog_viewer/main.py:352
 msgid "The package name is not valid."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:344
+#: src/apt_changelog_viewer/main.py:354
 msgid ""
 "Could not fetch the changelog. Check your configured software sources or "
 "network connection."
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:385
+#: src/apt_changelog_viewer/main.py:395
 msgid "Display"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:386
+#: src/apt_changelog_viewer/main.py:396
 msgid "Highlight security references"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:418
+#: src/apt_changelog_viewer/main.py:428
 msgid "Debug info copied"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:424
+#: src/apt_changelog_viewer/main.py:434
 msgid "General"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:426
+#: src/apt_changelog_viewer/main.py:436
 msgid "Quit"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:427
+#: src/apt_changelog_viewer/main.py:437
 msgid "Keyboard shortcuts"
 msgstr ""
 
-#: src/apt_changelog_viewer/main.py:446
+#: src/apt_changelog_viewer/main.py:456
 msgid ""
 "View package changelogs and highlight CVE and distribution security advisory "
 "references."

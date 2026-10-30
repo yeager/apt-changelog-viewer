@@ -82,7 +82,7 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
         scan_btn.connect("clicked", self._on_scan)
         headerbar.pack_start(scan_btn)
         
-        self._search = Gtk.SearchEntry(placeholder_text=_("Search packages..."))
+        self._search = Gtk.SearchEntry(placeholder_text=_("Search packages or descriptions..."))
         self._search.set_size_request(200, -1)
         self._search.connect("search-changed", self._on_search)
         headerbar.pack_start(self._search)
@@ -216,10 +216,12 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
                 break
             self._pkg_list.remove(row)
         
-        search = self._search.get_text().lower()
+        search = self._search.get_text().casefold().strip()
         count = 0
         for pkg in self._packages:
-            if search and search not in pkg["name"].lower():
+            description = pkg.get("description", "")
+            searchable_text = f"{pkg['name']} {description}".casefold()
+            if search and search not in searchable_text:
                 continue
             row = Gtk.ListBoxRow()
             box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
@@ -229,6 +231,14 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
             box.set_margin_bottom(4)
             name_label = Gtk.Label(label=pkg["name"], xalign=0, ellipsize=Pango.EllipsizeMode.END)
             box.append(name_label)
+            if description:
+                description_label = Gtk.Label(
+                    label=description, xalign=0, wrap=True, lines=2,
+                    ellipsize=Pango.EllipsizeMode.END,
+                )
+                description_label.add_css_class("dim-label")
+                description_label.add_css_class("caption")
+                box.append(description_label)
             ver_label = Gtk.Label(label=pkg["version"], xalign=0)
             ver_label.add_css_class("dim-label")
             ver_label.add_css_class("caption")
@@ -237,7 +247,7 @@ class AptChangelogViewerWindow(Adw.ApplicationWindow):
             row._pkg_name = pkg["name"]
             self._pkg_list.append(row)
             count += 1
-            if count > 500:
+            if count >= 500:
                 break
         
         self._status.set_text(_("%(count)d packages") % {"count": count})

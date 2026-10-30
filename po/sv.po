@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apt-changelog-viewer 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-30 15:30+0100\n"
+"POT-Creation-Date: 2026-10-30 16:02+0100\n"
 "PO-Revision-Date: 2026-02-22 07:13+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/danielnylander/teams/"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/apt_changelog_viewer/main.py:64 src/apt_changelog_viewer/main.py:76
-#: src/apt_changelog_viewer/main.py:439
+#: src/apt_changelog_viewer/main.py:449
 msgid "Apt Changelog Viewer"
 msgstr "Apt Changelog Viewer"
 
@@ -31,11 +31,11 @@ msgid "Scan installed packages"
 msgstr "Sök igenom installerade paket"
 
 #: src/apt_changelog_viewer/main.py:85
-msgid "Search packages..."
-msgstr "Sök efter paket..."
+msgid "Search packages or descriptions..."
+msgstr "Sök efter paket eller beskrivningar..."
 
-#: src/apt_changelog_viewer/main.py:92 src/apt_changelog_viewer/main.py:378
-#: src/apt_changelog_viewer/main.py:381
+#: src/apt_changelog_viewer/main.py:92 src/apt_changelog_viewer/main.py:388
+#: src/apt_changelog_viewer/main.py:391
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -95,22 +95,24 @@ msgstr "Söker igenom installerade paket..."
 msgid ""
 "Could not read the installed package list. Check that dpkg-query is "
 "available and try again."
-msgstr "Det gick inte att läsa listan över installerade paket. Kontrollera att dpkg-query finns och försök igen."
+msgstr ""
+"Det gick inte att läsa listan över installerade paket. Kontrollera att dpkg-"
+"query finns och försök igen."
 
-#: src/apt_changelog_viewer/main.py:243
+#: src/apt_changelog_viewer/main.py:253
 #, python-format
 msgid "%(count)d packages"
 msgstr "%(count)d paket"
 
-#: src/apt_changelog_viewer/main.py:255
+#: src/apt_changelog_viewer/main.py:265
 msgid "Checking for a local changelog…"
 msgstr "Söker efter en lokal ändringslogg …"
 
-#: src/apt_changelog_viewer/main.py:256
+#: src/apt_changelog_viewer/main.py:266
 msgid "Reading the local changelog…"
 msgstr "Läser den lokala ändringsloggen …"
 
-#: src/apt_changelog_viewer/main.py:262
+#: src/apt_changelog_viewer/main.py:272
 msgid ""
 "No local changelog is installed. Choose Fetch online changelog to request "
 "one from the APT-configured source."
@@ -118,23 +120,23 @@ msgstr ""
 "Det finns ingen lokal ändringslogg. Välj Hämta ändringsloggen från nätet om "
 "du vill begära den från APT:s konfigurerade källa."
 
-#: src/apt_changelog_viewer/main.py:275
+#: src/apt_changelog_viewer/main.py:285
 msgid "Online changelog loaded"
 msgstr "Ändringsloggen från nätet har lästs in"
 
-#: src/apt_changelog_viewer/main.py:277
+#: src/apt_changelog_viewer/main.py:287
 msgid "Local changelog loaded"
 msgstr "Den lokala ändringsloggen har lästs in"
 
-#: src/apt_changelog_viewer/main.py:279
+#: src/apt_changelog_viewer/main.py:289
 msgid "No local changelog found"
 msgstr "Ingen lokal ändringslogg hittades"
 
-#: src/apt_changelog_viewer/main.py:304
+#: src/apt_changelog_viewer/main.py:314
 msgid "Fetch this changelog from your configured APT source?"
 msgstr "Hämta ändringsloggen från den APT-källa som har konfigurerats?"
 
-#: src/apt_changelog_viewer/main.py:305
+#: src/apt_changelog_viewer/main.py:315
 #, python-format
 msgid ""
 "APT will contact the changelog server configured by your software sources to "
@@ -145,23 +147,23 @@ msgstr ""
 "och begär %(package)s. Servern kan se din IP-adress och paketnamnet. Inga "
 "paket installeras. Vill du fortsätta?"
 
-#: src/apt_changelog_viewer/main.py:307
+#: src/apt_changelog_viewer/main.py:317
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/apt_changelog_viewer/main.py:308
+#: src/apt_changelog_viewer/main.py:318
 msgid "Fetch changelog"
 msgstr "Hämta ändringslogg"
 
-#: src/apt_changelog_viewer/main.py:324
+#: src/apt_changelog_viewer/main.py:334
 msgid "Fetching changelog from the configured APT source…"
 msgstr "Hämtar ändringsloggen från den konfigurerade APT-källan …"
 
-#: src/apt_changelog_viewer/main.py:339
+#: src/apt_changelog_viewer/main.py:349
 msgid "APT tools are not available on this system."
 msgstr "APT-verktygen är inte tillgängliga på det här systemet."
 
-#: src/apt_changelog_viewer/main.py:340
+#: src/apt_changelog_viewer/main.py:350
 msgid ""
 "The changelog request timed out. Your local changelog, if available, is "
 "still shown."
@@ -169,15 +171,15 @@ msgstr ""
 "Begäran om ändringsloggen tog för lång tid. Den lokala ändringsloggen visas "
 "fortfarande, om den finns."
 
-#: src/apt_changelog_viewer/main.py:341
+#: src/apt_changelog_viewer/main.py:351
 msgid "The APT source returned an empty changelog."
 msgstr "APT-källan skickade tillbaka en tom ändringslogg."
 
-#: src/apt_changelog_viewer/main.py:342
+#: src/apt_changelog_viewer/main.py:352
 msgid "The package name is not valid."
 msgstr "Paketnamnet är ogiltigt."
 
-#: src/apt_changelog_viewer/main.py:344
+#: src/apt_changelog_viewer/main.py:354
 msgid ""
 "Could not fetch the changelog. Check your configured software sources or "
 "network connection."
@@ -185,37 +187,40 @@ msgstr ""
 "Det gick inte att hämta ändringsloggen. Kontrollera programkällorna eller "
 "nätverksanslutningen."
 
-#: src/apt_changelog_viewer/main.py:385
+#: src/apt_changelog_viewer/main.py:395
 msgid "Display"
 msgstr "Visning"
 
-#: src/apt_changelog_viewer/main.py:386
+#: src/apt_changelog_viewer/main.py:396
 msgid "Highlight security references"
 msgstr "Markera säkerhetsreferenser"
 
-#: src/apt_changelog_viewer/main.py:418
+#: src/apt_changelog_viewer/main.py:428
 msgid "Debug info copied"
 msgstr "Felsökningsinformation kopierades"
 
-#: src/apt_changelog_viewer/main.py:424
+#: src/apt_changelog_viewer/main.py:434
 msgid "General"
 msgstr "Allmänt"
 
-#: src/apt_changelog_viewer/main.py:426
+#: src/apt_changelog_viewer/main.py:436
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/apt_changelog_viewer/main.py:427
+#: src/apt_changelog_viewer/main.py:437
 msgid "Keyboard shortcuts"
 msgstr "Tangentbordsgenvägar"
 
-#: src/apt_changelog_viewer/main.py:446
+#: src/apt_changelog_viewer/main.py:456
 msgid ""
 "View package changelogs and highlight CVE and distribution security advisory "
 "references."
 msgstr ""
 "Visa paketens ändringsloggar och markera CVE-nummer och distributionernas "
 "säkerhetsbulletiner."
+
+#~ msgid "Search packages..."
+#~ msgstr "Sök efter paket..."
 
 #~ msgid "apt-changelog-viewer"
 #~ msgstr "APT Changelog Viewer"
