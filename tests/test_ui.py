@@ -17,9 +17,14 @@ class ChangelogWindowTests(unittest.TestCase):
     def setUpClass(cls):
         Gtk.init()
         Adw.init()
+        cls.app = AptChangelogViewerApp()
+        cls.app.register(None)
+        cls.app.activate()
+        cls.app.window.destroy()
+        cls.app.window = None
 
     def setUp(self):
-        self.app = AptChangelogViewerApp()
+        self.app = type(self).app
         self.window = AptChangelogViewerWindow(self.app)
         self.window._current_pkg = "libexample1"
 
